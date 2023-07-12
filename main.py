@@ -170,8 +170,7 @@ def procesar_actividades():
         for i, row in indicesUCB.iterrows():
 
             idActividad = row["idActividad"]
-            print(row["idActividad"])
-            print(idActividad)
+            print("Actividad:", idActividad)
 
             existencia = verificar_UCB_DB(idAlumno, idActividad)
             if existencia:
@@ -195,10 +194,10 @@ def verificar_UCB_DB(idAlumno,idActividad):
 
     while True:
         if not existencia:
-            print("No existe registro en la BD del indiceUCB de ese alumno")  # Si la lista está vacía, salimos del bucle
+            # Si la lista está vacía, salimos del bucle
             return False
         else:
-            print("Ya existen indices ucb para ese alumno")
+            print("Actualizando indice ucb de esa actividad para el alumno...")
             dfExistencia = pd.json_normalize(existencia)
 
             if idActividad in dfExistencia['TblIndiceUcbAlumno_idActividad'].values:
@@ -215,7 +214,7 @@ new_activities = obtener_actividades(last_checked_date)
 #print("Nuevas actividades:", new_activities)
 while True:
     if not new_activities:
-        print("No hay actividades por realizar")
+        print("No hay resultados por analizar")
         break
     else:
         procesar_recompensas(new_activities)
